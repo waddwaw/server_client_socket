@@ -16,7 +16,7 @@ public class TestRecvHander extends IRecvHandler{
     public IMessage handleRecvMsg(int nServerID, byte[] recvMsg, int rcvSize) {
 
         Log.d("data" , "id:" + nServerID + "byte[]:" + new String(recvMsg) + "rcvSize:" + rcvSize);
-
+//        m_transInfo.commitTrans(seq, IMessage);
         return null;
     }
 
