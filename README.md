@@ -6,6 +6,9 @@
 
 此外欢迎大家修改源码 我将第一时间审核代码并合进分支
 
+UML 草图
+![Aaron Swartz](https://raw.githubusercontent.com/waddwaw/server_client_socket/master/uml.png)
+
 使用方法
 
 TestRecvHander 为我们收到消息回调类
