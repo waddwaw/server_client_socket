@@ -67,7 +67,7 @@ public class WBPRcvHandler extends IRecvHandler {
 	}
 
 	@Override
-	public IMessage handleRecvMsg(int nServerID, byte[] recvMsg, int rcvSize) {
+	public IMessage handleRecvByteMsg(int nServerID, byte[] recvMsg, int rcvSize) {
 		try {
 			if (m_nCtrlRcvPos > 0 || rcvSize < WBPHead.WBPHEAD_LENGTH) {
 				if (rcvSize + m_nCtrlRcvPos > m_CtrlRcvBuffer.length) {
@@ -125,15 +125,17 @@ public class WBPRcvHandler extends IRecvHandler {
 	}
 
 	@Override
-	public void handlerHeartBeat(int clientID, IMessage message) {
-		//todo 处理心跳
+	public boolean handlerHeartBeat(int clientID, IMessage message) {
+		//todo 验证是否是心跳
 		if (message == null) {
-			return;
+			return false;
 		}
+		return  false;
 
+	}
 
-		//判断 meg 命令号 是否为心跳 如果是返回真并做相应处理
-//		heartBeatService.handleHeartBeatReq(clientID, message); 这个应该放到 解析里面进行判断处理
+	@Override
+	public void handleMsg(int nServerID, IMessage message) {
 
 	}
 

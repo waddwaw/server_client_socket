@@ -74,10 +74,10 @@ public class ServerHeartBeatService extends Thread {
 
         ClientHBInfo hbInfo = m_clientHBMap.get(clientId);
         if (hbInfo == null) {
-            iRecvHandler.handlerHeartBeat(clientId, null);
+//            iRecvHandler.handlerHeartBeat(clientId, null);
         } else {
             hbInfo.m_LastSendTime = System.nanoTime();
-            iRecvHandler.handlerHeartBeat(clientId, message);
+//            iRecvHandler.handlerHeartBeat(clientId, message);
         }
     }
 

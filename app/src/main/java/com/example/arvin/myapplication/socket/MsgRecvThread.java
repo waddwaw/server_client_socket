@@ -85,7 +85,7 @@ public class MsgRecvThread extends Thread {
 				}
 				//Logger.fd(LogDef.LOG_SOCKET, "revicedata: "+nRcv+ "--server:"+m_serverID);
 				if (null != m_recvHandler && nRcv > 0) {
-					m_recvHandler.handleRecvMsg(m_serverID, m_buffer, nRcv);
+					m_recvHandler.handlerMsg(m_serverID, m_buffer, nRcv);
 				}
 
 			} catch (IOException e) {

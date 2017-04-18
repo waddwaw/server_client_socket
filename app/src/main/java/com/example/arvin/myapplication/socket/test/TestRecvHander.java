@@ -13,10 +13,8 @@ public class TestRecvHander extends IRecvHandler{
 
 
     @Override
-    public IMessage handleRecvMsg(int nServerID, byte[] recvMsg, int rcvSize) {
-
+    public IMessage handleRecvByteMsg(int nServerID, byte[] recvMsg, int rcvSize) {
         Log.d("data" , "id:" + nServerID + "byte[]:" + new String(recvMsg) + "rcvSize:" + rcvSize);
-//        m_transInfo.commitTrans(seq, IMessage);
         return null;
     }
 
@@ -26,8 +24,14 @@ public class TestRecvHander extends IRecvHandler{
     }
 
     @Override
-    public void handlerHeartBeat(int nServerID, IMessage message) {
+    public boolean handlerHeartBeat(int nServerID, IMessage message) {
 
+        return false;
+    }
+
+    @Override
+    public void handleMsg(int nServerID, IMessage message) {
+        //处理实际消息实体
     }
 
     @Override
