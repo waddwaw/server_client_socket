@@ -50,44 +50,44 @@ TestRecvHander 为我们收到消息回调类
 
 创建客户端链接
 ```java
-        IConnectPolicy.ServerHost host = new IConnectPolicy.ServerHost();
-        host.serverHost = "172.16.45.196";
-        host.serverPort = 13911;
-        List<IConnectPolicy.ServerHost> hosts = new ArrayList<>();
-        hosts.add(host);
-        ClientConnectPolicy policy = new ClientConnectPolicy(110, hosts, 1000 * 10, 10);
-        TestRecvHander recvHander = new TestRecvHander();
-        Transaction transaction = new Transaction();
-        ConnectManager.getInstance().addClientConnect(policy, recvHander, transaction, new INetConnectListener() {
-            @Override
-            public void connectStatusChange(int serverID, boolean connected) {
-                Log.d("socket" ,"connectStatusChange:" + serverID  + "=====" + connected);
-            }
+    IConnectPolicy.ServerHost host = new IConnectPolicy.ServerHost();
+    host.serverHost = "172.16.45.196";
+    host.serverPort = 13911;
+    List<IConnectPolicy.ServerHost> hosts = new ArrayList<>();
+    hosts.add(host);
+    ClientConnectPolicy policy = new ClientConnectPolicy(110, hosts, 1000 * 10, 10);
+    TestRecvHander recvHander = new TestRecvHander();
+    Transaction transaction = new Transaction();
+    ConnectManager.getInstance().addClientConnect(policy, recvHander, transaction, new INetConnectListener() {
+        @Override
+        public void connectStatusChange(int serverID, boolean connected) {
+            Log.d("socket" ,"connectStatusChange:" + serverID  + "=====" + connected);
+        }
 
-            @Override
-            public void failedToConnect(int serverID, Exception e) {
-                Log.d("socket" ,"failedToConnect:" + serverID  + "=====" + e.toString());
-            }
-        });
+        @Override
+        public void failedToConnect(int serverID, Exception e) {
+            Log.d("socket" ,"failedToConnect:" + serverID  + "=====" + e.toString());
+        }
+    });
 
                 
 ```
 作为服务器启动
 ```java
 
-       TestRecvHander recvHander = new TestRecvHander();
-        Transaction transaction = new Transaction();
-        ConnectManager.getInstance().addServerConnect(111, 14411, recvHander, transaction, new INetConnectListener(){
+   TestRecvHander recvHander = new TestRecvHander();
+    Transaction transaction = new Transaction();
+    ConnectManager.getInstance().addServerConnect(111, 14411, recvHander, transaction, new INetConnectListener(){
 
-            @Override
-            public void connectStatusChange(int serverID, boolean connected) {
-                Log.d("socket" ,"connectStatusChange:" + serverID  + "=====" + connected);
-            }
+        @Override
+        public void connectStatusChange(int serverID, boolean connected) {
+            Log.d("socket" ,"connectStatusChange:" + serverID  + "=====" + connected);
+        }
 
-            @Override
-            public void failedToConnect(int serverID, Exception e) {
-                Log.d("socket" ,"failedToConnect:" + serverID  + "=====" + e.toString());
-            }
-        });
+        @Override
+        public void failedToConnect(int serverID, Exception e) {
+            Log.d("socket" ,"failedToConnect:" + serverID  + "=====" + e.toString());
+        }
+    });
 
 ```
