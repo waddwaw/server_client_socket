@@ -33,10 +33,4 @@ public class TestRecvHander extends IRecvHandler{
     public void handleMsg(int nServerID, IMessage message) {
         //处理实际消息实体
     }
-
-    @Override
-    public IMessage getHeartBeatMsg() {
-        TestMsg msg = new TestMsg("xin");
-        return msg;
-    }
 }

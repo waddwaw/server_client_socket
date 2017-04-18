@@ -139,12 +139,6 @@ public class WBPRcvHandler extends IRecvHandler {
 
 	}
 
-	@Override
-	public IMessage getHeartBeatMsg() {
-		//todo 获取发送心跳的  IMessage
-		return null;
-	}
-
 	private int consumeBytes(int nServerID, byte[] bytes, int rcvSize, int consumPos) {
 		int nConsumSize = 0;
 		if (!WBPHead.isHead(bytes, consumPos)) {
