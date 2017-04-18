@@ -11,7 +11,7 @@ UML 草图
 
 使用方法
 
-TestRecvHander 为我们收到消息回调类
+IRecvHander 为我们收到消息回调类
 ```java
      /**
      * 解析二进制消息 并转化成 IMessage 实体
