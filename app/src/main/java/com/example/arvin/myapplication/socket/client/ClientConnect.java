@@ -38,11 +38,11 @@ public class ClientConnect implements IConnect,IConnMng,IHeartBeatCallBack {
     INetConnectListener listener;
     ServerHeartBeatService heartBeatService;
 
-    public ClientConnect(IConnectPolicy policy, IRecvHandler iRecvHandler) {
+    public ClientConnect(IConnectPolicy policy, IRecvHandler iRecvHandler,IMessage heartBeatMsg) {
         this.policy = policy;
         this.iRecvHandler = iRecvHandler;
         this.transInfo = iRecvHandler.m_transInfo;
-        heartBeatService  = new ServerHeartBeatService(this.iRecvHandler, ClientConnect.this, ConstDef.SERVER_HEARTBEAT_EXPIRE_TIME_IN_SECONDS, true);
+        heartBeatService  = new ServerHeartBeatService(heartBeatMsg, ClientConnect.this, ConstDef.SERVER_HEARTBEAT_EXPIRE_TIME_IN_SECONDS, true);
         this.iRecvHandler.heartBeatService = heartBeatService;
     }
 

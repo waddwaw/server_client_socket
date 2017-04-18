@@ -42,9 +42,9 @@ public class ConnectManager {
      *
      * @param policy
      */
-    public void addClientConnect(final IConnectPolicy policy, final IRecvHandler iRecvHandler, ITransInfo iTransInfo, final INetConnectListener listener) {
+    public void addClientConnect(final IConnectPolicy policy, final IRecvHandler iRecvHandler, ITransInfo iTransInfo, final INetConnectListener listener, IMessage heartBeatMsg) {
         iRecvHandler.m_transInfo = iTransInfo;
-        final ClientConnect lanClient = new ClientConnect(policy, iRecvHandler);
+        final ClientConnect lanClient = new ClientConnect(policy, iRecvHandler, heartBeatMsg);
         new Thread(new Runnable() {
             @Override
             public void run() {

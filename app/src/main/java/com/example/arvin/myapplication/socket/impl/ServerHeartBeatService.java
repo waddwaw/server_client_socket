@@ -30,7 +30,7 @@ public class ServerHeartBeatService extends Thread {
     }
 
     private Map<Integer, ClientHBInfo> m_clientHBMap;
-    private IRecvHandler iRecvHandler;
+    private IMessage heartBeatMsg;
 
     private long m_expireTimeInNanoSeconds;
     private boolean m_bStart;
@@ -38,9 +38,9 @@ public class ServerHeartBeatService extends Thread {
     private boolean isClient;
     private long expireTimeInSeconds;
 
-    public ServerHeartBeatService(IRecvHandler iRecvHandler, IHeartBeatCallBack callBack, long expireTimeInSeconds, boolean isClient) {
+    public ServerHeartBeatService(IMessage heartBeatMsg, IHeartBeatCallBack callBack, long expireTimeInSeconds, boolean isClient) {
         this.setName("ServerHeartBeatService");
-        this.iRecvHandler = iRecvHandler;
+        this.heartBeatMsg = heartBeatMsg;
         this.m_callBack = callBack;
         this.isClient = isClient;
         this.expireTimeInSeconds = expireTimeInSeconds;
@@ -116,8 +116,10 @@ public class ServerHeartBeatService extends Thread {
                 for (Map.Entry<Integer, ClientHBInfo> entry : m_clientHBMap.entrySet()) {
                     ClientHBInfo clientHBInfo = entry.getValue();
                     if (currentTime - clientHBInfo.m_LastSendTime > m_expireTimeInNanoSeconds - TimeUnit.NANOSECONDS.convert(expireTimeInSeconds - 20, TimeUnit.SECONDS)) {
-
-                        ConnectManager.getInstance().sendCallback(clientHBInfo.m_nClientID, -1, iRecvHandler.getHeartBeatMsg(), 10L, new CmdReqCallback() {
+                        if (heartBeatMsg == null) {
+                            continue;
+                        }
+                        ConnectManager.getInstance().sendCallback(clientHBInfo.m_nClientID, -1, heartBeatMsg, 10L, new CmdReqCallback() {
 
                             @Override
                             public void callback(IMessage msg) {

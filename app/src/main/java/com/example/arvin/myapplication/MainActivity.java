@@ -101,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
                 ClientConnectPolicy policy = new ClientConnectPolicy(110, hosts, 1000 * 10, 10);
                 TestRecvHander recvHander = new TestRecvHander();
                 Transaction transaction = new Transaction();
+                TestMsg msg = new TestMsg("xintiaoxiaox ");
                 ConnectManager.getInstance().addClientConnect(policy, recvHander, transaction, new INetConnectListener() {
                     @Override
                     public void connectStatusChange(int serverID, boolean connected) {
@@ -111,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
                     public void failedToConnect(int serverID, Exception e) {
                         Log.d("socket" ,"failedToConnect:" + serverID  + "=====" + e.toString());
                     }
-                });
+                }, msg);
             }
         });
 

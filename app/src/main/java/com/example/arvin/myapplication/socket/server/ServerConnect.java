@@ -49,7 +49,7 @@ public class ServerConnect extends Thread implements IConnect, IConnMng, IHeartB
     public ServerConnect(int serverPort, IRecvHandler recvHandler) {
         this.serverPort = serverPort;
         this.recvHandler = recvHandler;
-        heartBeatService = new ServerHeartBeatService(this.recvHandler, ServerConnect.this, ConstDef.SERVER_HEARTBEAT_EXPIRE_TIME_IN_SECONDS, false);
+        heartBeatService = new ServerHeartBeatService(null, ServerConnect.this, ConstDef.SERVER_HEARTBEAT_EXPIRE_TIME_IN_SECONDS, false);
     }
 
     @Override

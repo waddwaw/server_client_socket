@@ -41,12 +41,6 @@ public abstract class IRecvHandler<T extends IMessage> {
     public abstract void handleMsg(int nServerID, T t);
 
     /**
-     * 获取发送心跳的 Msg
-     * @return
-     */
-    public abstract T getHeartBeatMsg();
-
-    /**
      * 优先执行是否有事务存在 如果有则进行提交
      * 其次检查是否是心跳包
      * 最后交给业务层进行处理
@@ -62,6 +56,7 @@ public abstract class IRecvHandler<T extends IMessage> {
         }
         boolean isHearBeat = handlerHeartBeat(nServerID, t);
         if (isHearBeat) {
+            heartBeatService.handleHeartBeatReq(nServerID, t);
             return;
         }
         handleMsg(nServerID, t);
