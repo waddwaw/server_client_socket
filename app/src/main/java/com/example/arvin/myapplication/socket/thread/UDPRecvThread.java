@@ -70,7 +70,7 @@ public class UDPRecvThread extends Thread{
 				m_sock.receive(dp);    
 				 
 				if (null != m_recvHandler){
-					m_recvHandler.handleRecvByteMsg(m_nServerID, m_buffer, dp.getLength());
+					m_recvHandler.handlerMsg(m_nServerID, m_buffer, dp.getLength());
 				}
 			       
 				Thread.sleep(100);

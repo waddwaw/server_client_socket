@@ -9,15 +9,15 @@ import com.example.arvin.myapplication.socket.IRecvHandler;
  * Created by arvin on 2017/4/14.
  */
 
-public class TestRecvHander extends IRecvHandler{
+public class TestRecvHander extends IRecvHandler<TestMsg>{
 
 
     @Override
-    public IMessage handleRecvByteMsg(int nServerID, byte[] recvMsg, int rcvSize) {
+    public TestMsg handleRecvByteMsg(int nServerID, byte[] recvMsg, int rcvSize) {
         byte[] buf = new byte[rcvSize];
         System.arraycopy(recvMsg, 0, buf, 0, rcvSize);
         Log.d("data" , "id:" + nServerID + "byte[]:" + new String(buf) + "rcvSize:" + rcvSize);
-        return null;
+        return new TestMsg(new String(buf));
     }
 
     @Override
@@ -32,7 +32,8 @@ public class TestRecvHander extends IRecvHandler{
     }
 
     @Override
-    public void handleMsg(int nServerID, IMessage message) {
+    public void handleMsg(int nServerID, TestMsg message) {
         //处理实际消息实体
+        Log.d("data", message.toString());
     }
 }

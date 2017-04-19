@@ -40,4 +40,11 @@ public class TestMsg implements IMessage{
         return 0;
     }
 
+    @Override
+    public String toString() {
+        return "TestMsg{" +
+                "seq=" + seq +
+                ", data='" + data + '\'' +
+                '}';
+    }
 }
