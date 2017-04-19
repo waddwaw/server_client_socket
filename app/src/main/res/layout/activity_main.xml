@@ -6,62 +6,86 @@
     android:layout_height="match_parent"
     tools:context="com.example.arvin.myapplication.MainActivity">
 
-    <Button
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/startAP"
-        android:text="开启隐藏AP"
-        />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/wifiSan"
-        android:text="WIFI扫描模式"
-        />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/stopWifi"
-        android:text="stopWif"
-        />
+        <Button
+            android:id="@+id/startAP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="开启隐藏AP" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/openWifi"
-        android:text="openWifi"
-        />
+        <Button
+            android:id="@+id/wifiSan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="WIFI扫描模式" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/closeWifi"
-        android:text="closeWifi"
-        />
+        <Button
+            android:id="@+id/stopWifi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="stopWif" />
 
-    <Button
+        <Button
+            android:id="@+id/openWifi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="openWifi" />
+
+        <Button
+            android:id="@+id/closeWifi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="closeWifi" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/startSocket"
-        android:text="startSocket"
-        />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/clientSend"
-        android:text="clientSend"
-        />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/sartServer"
-        android:text="sartServer"
-        />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/serverSend"
-        android:text="serverSend"
-        />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/startSocket"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="startSocket" />
+
+        <Button
+            android:id="@+id/clientSend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="clientSend" />
+
+        <Button
+            android:id="@+id/sartServer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="sartServer" />
+
+        <Button
+            android:id="@+id/serverSend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="serverSend" />
+
+        <Button
+            android:id="@+id/startUdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="startUdp" />
+
+        <Button
+            android:id="@+id/udpSend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="udpSend" />
+
+
+    </LinearLayout>
+
+
 </LinearLayout>

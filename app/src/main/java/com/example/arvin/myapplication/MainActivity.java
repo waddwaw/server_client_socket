@@ -12,6 +12,7 @@ import com.example.arvin.myapplication.socket.IConnectPolicy;
 import com.example.arvin.myapplication.socket.INetConnectListener;
 import com.example.arvin.myapplication.socket.ClientConnectPolicy;
 import com.example.arvin.myapplication.socket.Transaction;
+import com.example.arvin.myapplication.socket.entity.IMessage;
 import com.example.arvin.myapplication.socket.test.TestMsg;
 import com.example.arvin.myapplication.socket.test.TestRecvHander;
 
@@ -29,7 +30,8 @@ public class MainActivity extends AppCompatActivity {
     Button clientSend;
     Button startServer;
     Button serverSend;
-
+    Button startUdp;
+    Button sendUdp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
         clientSend = (Button) findViewById(R.id.clientSend);
         startServer = (Button) findViewById(R.id.sartServer);
         serverSend = (Button) findViewById(R.id.serverSend);
+        startUdp = (Button) findViewById(R.id.startUdp);
+        sendUdp = (Button) findViewById(R.id.udpSend);
 
 
         final WifiTool wifiTool = new WifiTool(MainActivity.this);
@@ -152,6 +156,28 @@ public class MainActivity extends AppCompatActivity {
                 TestMsg msg = new TestMsg("tsst");
                 boolean ok = ConnectManager.getInstance().send(110, -1, msg);
                 Log.d("socket:", "sned : " + ok );
+            }
+        });
+
+        startUdp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                IConnectPolicy.ServerHost host = new IConnectPolicy.ServerHost();
+                host.serverHost = "172.16.45.196";
+                host.serverPort = 13910;
+                List<IConnectPolicy.ServerHost> hosts = new ArrayList<>();
+                hosts.add(host);
+                ClientConnectPolicy policy = new ClientConnectPolicy(119, hosts, 1000 * 10, 10);
+                TestRecvHander recvHander = new TestRecvHander();
+                TestMsg msg = new TestMsg("test");
+                ConnectManager.getInstance().addUdpConnect(policy, recvHander, msg);
+            }
+        });
+
+        sendUdp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ConnectManager.getInstance().send(119, -1, new TestMsg("udpmsg"));
             }
         });
     }
