@@ -1,6 +1,4 @@
-package com.example.arvin.myapplication.socket.impl;
-
-import com.example.arvin.myapplication.socket.connect.IMessage;
+package com.example.arvin.myapplication.socket.entity;
 
 /**
  * Created by Ryan on 2016/4/14.

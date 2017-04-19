@@ -1,33 +1,31 @@
-package com.example.arvin.myapplication.socket.client;
+package com.example.arvin.myapplication.socket.connect;
 
 import android.util.Log;
 
 import com.example.arvin.myapplication.ConstDef;
-import com.example.arvin.myapplication.socket.MsgRecvThread;
-import com.example.arvin.myapplication.socket.MsgSendThread;
-import com.example.arvin.myapplication.socket.connect.CmdReqCallback;
-import com.example.arvin.myapplication.socket.connect.IConnMng;
-import com.example.arvin.myapplication.socket.connect.IConnect;
-import com.example.arvin.myapplication.socket.connect.IConnectPolicy;
-import com.example.arvin.myapplication.socket.connect.IHeartBeatCallBack;
-import com.example.arvin.myapplication.socket.connect.IMessage;
-import com.example.arvin.myapplication.socket.connect.INetConnectListener;
-import com.example.arvin.myapplication.socket.connect.IRecvHandler;
-import com.example.arvin.myapplication.socket.connect.ITransInfo;
-import com.example.arvin.myapplication.socket.impl.ServerHeartBeatService;
+import com.example.arvin.myapplication.socket.thread.MsgRecvThread;
+import com.example.arvin.myapplication.socket.thread.MsgSendThread;
+import com.example.arvin.myapplication.socket.CmdReqCallback;
+import com.example.arvin.myapplication.socket.IConnMng;
+import com.example.arvin.myapplication.socket.IConnect;
+import com.example.arvin.myapplication.socket.IConnectPolicy;
+import com.example.arvin.myapplication.socket.IHeartBeatCallBack;
+import com.example.arvin.myapplication.socket.entity.IMessage;
+import com.example.arvin.myapplication.socket.INetConnectListener;
+import com.example.arvin.myapplication.socket.IRecvHandler;
+import com.example.arvin.myapplication.socket.ITransInfo;
+import com.example.arvin.myapplication.socket.ServerHeartBeatService;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by arvin on 2017/4/13.
  */
 
-public class ClientConnect implements IConnect,IConnMng,IHeartBeatCallBack {
+public class TcpConnect implements IConnect,IConnMng,IHeartBeatCallBack {
 
     IConnectPolicy policy;
     IRecvHandler iRecvHandler;
@@ -38,11 +36,11 @@ public class ClientConnect implements IConnect,IConnMng,IHeartBeatCallBack {
     INetConnectListener listener;
     ServerHeartBeatService heartBeatService;
 
-    public ClientConnect(IConnectPolicy policy, IRecvHandler iRecvHandler,IMessage heartBeatMsg) {
+    public TcpConnect(IConnectPolicy policy, IRecvHandler iRecvHandler, IMessage heartBeatMsg) {
         this.policy = policy;
         this.iRecvHandler = iRecvHandler;
         this.transInfo = iRecvHandler.m_transInfo;
-        heartBeatService  = new ServerHeartBeatService(heartBeatMsg, ClientConnect.this, ConstDef.SERVER_HEARTBEAT_EXPIRE_TIME_IN_SECONDS, true);
+        heartBeatService  = new ServerHeartBeatService(heartBeatMsg, TcpConnect.this, ConstDef.SERVER_HEARTBEAT_EXPIRE_TIME_IN_SECONDS, true);
         this.iRecvHandler.heartBeatService = heartBeatService;
     }
 

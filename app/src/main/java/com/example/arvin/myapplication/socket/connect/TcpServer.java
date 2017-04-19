@@ -1,17 +1,17 @@
-package com.example.arvin.myapplication.socket.server;
+package com.example.arvin.myapplication.socket.connect;
 
 import com.example.arvin.myapplication.ConstDef;
-import com.example.arvin.myapplication.socket.MsgRecvThread;
-import com.example.arvin.myapplication.socket.MsgSendThread;
-import com.example.arvin.myapplication.socket.connect.CmdReqCallback;
-import com.example.arvin.myapplication.socket.connect.IConnMng;
-import com.example.arvin.myapplication.socket.connect.IConnect;
-import com.example.arvin.myapplication.socket.connect.IHeartBeatCallBack;
-import com.example.arvin.myapplication.socket.connect.IMessage;
-import com.example.arvin.myapplication.socket.connect.INetConnectListener;
-import com.example.arvin.myapplication.socket.connect.IRecvHandler;
-import com.example.arvin.myapplication.socket.connect.ITransInfo;
-import com.example.arvin.myapplication.socket.impl.ServerHeartBeatService;
+import com.example.arvin.myapplication.socket.thread.MsgRecvThread;
+import com.example.arvin.myapplication.socket.thread.MsgSendThread;
+import com.example.arvin.myapplication.socket.CmdReqCallback;
+import com.example.arvin.myapplication.socket.IConnMng;
+import com.example.arvin.myapplication.socket.IConnect;
+import com.example.arvin.myapplication.socket.IHeartBeatCallBack;
+import com.example.arvin.myapplication.socket.entity.IMessage;
+import com.example.arvin.myapplication.socket.INetConnectListener;
+import com.example.arvin.myapplication.socket.IRecvHandler;
+import com.example.arvin.myapplication.socket.ITransInfo;
+import com.example.arvin.myapplication.socket.ServerHeartBeatService;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -25,7 +25,7 @@ import java.util.concurrent.Semaphore;
  * Created by arvin on 2017/4/13.
  */
 
-public class ServerConnect extends Thread implements IConnect, IConnMng, IHeartBeatCallBack {
+public class TcpServer extends Thread implements IConnect, IConnMng, IHeartBeatCallBack {
 
     private int serverPort;
     private Semaphore semaphore = new Semaphore(1);
@@ -46,10 +46,10 @@ public class ServerConnect extends Thread implements IConnect, IConnMng, IHeartB
         int m_nSendSeq;
     }
 
-    public ServerConnect(int serverPort, IRecvHandler recvHandler) {
+    public TcpServer(int serverPort, IRecvHandler recvHandler) {
         this.serverPort = serverPort;
         this.recvHandler = recvHandler;
-        heartBeatService = new ServerHeartBeatService(null, ServerConnect.this, ConstDef.SERVER_HEARTBEAT_EXPIRE_TIME_IN_SECONDS, false);
+        heartBeatService = new ServerHeartBeatService(null, TcpServer.this, ConstDef.SERVER_HEARTBEAT_EXPIRE_TIME_IN_SECONDS, false);
     }
 
     @Override

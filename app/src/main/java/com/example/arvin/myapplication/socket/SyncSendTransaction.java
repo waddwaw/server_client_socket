@@ -1,10 +1,10 @@
-package com.example.arvin.myapplication.socket.impl;
+package com.example.arvin.myapplication.socket;
 
 import android.util.Log;
 
 import com.example.arvin.myapplication.socket.ConnectManager;
-import com.example.arvin.myapplication.socket.connect.CmdReqCallback;
-import com.example.arvin.myapplication.socket.connect.ITransInfo;
+import com.example.arvin.myapplication.socket.CmdReqCallback;
+import com.example.arvin.myapplication.socket.ITransInfo;
 
 import java.util.ArrayList;
 import java.util.Date;

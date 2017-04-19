@@ -1,6 +1,6 @@
 package com.example.arvin.myapplication.socket.test;
 
-import com.example.arvin.myapplication.socket.connect.IMessage;
+import com.example.arvin.myapplication.socket.entity.IMessage;
 
 /**
  * Created by arvin on 2017/4/14.

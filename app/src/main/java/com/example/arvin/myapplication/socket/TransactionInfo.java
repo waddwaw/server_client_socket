@@ -1,7 +1,7 @@
-package com.example.arvin.myapplication.socket.impl;
+package com.example.arvin.myapplication.socket;
 
 
-import com.example.arvin.myapplication.socket.connect.CmdReqCallback;
+import com.example.arvin.myapplication.socket.CmdReqCallback;
 
 import java.util.Date;
 

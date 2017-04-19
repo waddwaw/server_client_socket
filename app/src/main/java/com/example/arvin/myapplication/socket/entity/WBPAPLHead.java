@@ -1,4 +1,4 @@
-package com.example.arvin.myapplication.socket.impl;
+package com.example.arvin.myapplication.socket.entity;
 
 /**
  * Created by Administrator on 2016/4/14.

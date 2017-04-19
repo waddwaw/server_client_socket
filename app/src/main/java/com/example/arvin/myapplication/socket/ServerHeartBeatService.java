@@ -1,12 +1,8 @@
-package com.example.arvin.myapplication.socket.impl;
+package com.example.arvin.myapplication.socket;
 
 import android.util.Log;
 
-import com.example.arvin.myapplication.socket.ConnectManager;
-import com.example.arvin.myapplication.socket.connect.CmdReqCallback;
-import com.example.arvin.myapplication.socket.connect.IHeartBeatCallBack;
-import com.example.arvin.myapplication.socket.connect.IMessage;
-import com.example.arvin.myapplication.socket.connect.IRecvHandler;
+import com.example.arvin.myapplication.socket.entity.IMessage;
 
 import java.util.ArrayList;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package com.example.arvin.myapplication.socket.connect;
+package com.example.arvin.myapplication.socket;
 
 /**
  * 心跳超时和处理 进行失败回调

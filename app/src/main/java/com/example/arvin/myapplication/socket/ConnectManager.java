@@ -1,14 +1,9 @@
 package com.example.arvin.myapplication.socket;
 
-import com.example.arvin.myapplication.socket.client.ClientConnect;
-import com.example.arvin.myapplication.socket.connect.CmdReqCallback;
-import com.example.arvin.myapplication.socket.connect.IConnect;
-import com.example.arvin.myapplication.socket.connect.IConnectPolicy;
-import com.example.arvin.myapplication.socket.connect.IMessage;
-import com.example.arvin.myapplication.socket.connect.INetConnectListener;
-import com.example.arvin.myapplication.socket.connect.IRecvHandler;
-import com.example.arvin.myapplication.socket.connect.ITransInfo;
-import com.example.arvin.myapplication.socket.server.ServerConnect;
+import com.example.arvin.myapplication.socket.connect.TcpConnect;
+import com.example.arvin.myapplication.socket.connect.UdpConnect;
+import com.example.arvin.myapplication.socket.entity.IMessage;
+import com.example.arvin.myapplication.socket.connect.TcpServer;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -38,13 +33,13 @@ public class ConnectManager {
     }
 
     /**
-     * 向ServicesManager 添加客户端类服务器 如连接云端的主服务器 默认启动服务
+     * ConnectManager 添加客户端类服务器 如连接云端的主服务器 默认启动服务
      *
      * @param policy
      */
     public void addClientConnect(final IConnectPolicy policy, final IRecvHandler iRecvHandler, ITransInfo iTransInfo, final INetConnectListener listener, IMessage heartBeatMsg) {
         iRecvHandler.m_transInfo = iTransInfo;
-        final ClientConnect lanClient = new ClientConnect(policy, iRecvHandler, heartBeatMsg);
+        final TcpConnect lanClient = new TcpConnect(policy, iRecvHandler, heartBeatMsg);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -54,12 +49,10 @@ public class ConnectManager {
                 connectMaps.put(policy.nServerID(), lanClient);
             }
         }).start();
-
-
     }
 
     /**
-     * 向ServicesManager 添加本地Server服务 默认启动该服务
+     * ConnectManager 添加本地Server服务 默认启动该服务
      *
      * @param serkey
      * @param port
@@ -67,7 +60,7 @@ public class ConnectManager {
      */
     public void addServerConnect(final int serkey, int port, IRecvHandler iRecvHandler, ITransInfo iTransInfo, final INetConnectListener listener) {
         iRecvHandler.m_transInfo = iTransInfo;
-        final ServerConnect connect = new ServerConnect(port, iRecvHandler);
+        final TcpServer connect = new TcpServer(port, iRecvHandler);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -75,6 +68,23 @@ public class ConnectManager {
                 connect.start();
                 connect.addINetConnectListener(listener);
                 connectMaps.put(serkey, connect);
+            }
+        }).start();
+    }
+
+    /**
+     * ConnectManager 添加Udp连接
+     *
+     * @param iRecvHandler
+     */
+    public void addUdpConnect(final IConnectPolicy policy, final IRecvHandler iRecvHandler) {
+        final UdpConnect connect = new UdpConnect(policy, iRecvHandler);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                connect.init();
+                connect.start();
+                connectMaps.put(policy.nServerID(), connect);
             }
         }).start();
     }
@@ -109,6 +119,14 @@ public class ConnectManager {
             return server.syncSendNext();
         }
         return false;
+    }
+
+    public void closeServer(int serKey) {
+        IConnect server = connectMaps.remove(serKey);
+        if (server != null) {
+            server.m_stop();
+            server.uninit();
+        }
     }
 
 }

@@ -1,5 +1,7 @@
-package com.example.arvin.myapplication.socket.connect;
+package com.example.arvin.myapplication.socket;
 
+
+import com.example.arvin.myapplication.socket.entity.IMessage;
 
 /**
  * 链接层初始化 接口

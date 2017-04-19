@@ -1,6 +1,6 @@
-package com.example.arvin.myapplication.socket.impl;
+package com.example.arvin.myapplication.socket;
 
-import com.example.arvin.myapplication.socket.connect.IConnectPolicy;
+import com.example.arvin.myapplication.socket.IConnectPolicy;
 
 import java.util.List;
 

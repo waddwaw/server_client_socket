@@ -1,4 +1,4 @@
-package com.example.arvin.myapplication.socket.impl;
+package com.example.arvin.myapplication.socket.entity;
 
 
 import com.example.arvin.myapplication.ConstDef;

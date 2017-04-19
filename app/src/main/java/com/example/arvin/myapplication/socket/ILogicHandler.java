@@ -1,8 +1,8 @@
-package com.example.arvin.myapplication.socket.connect;
+package com.example.arvin.myapplication.socket;
 
 
-import com.example.arvin.myapplication.socket.impl.WBPAPLHead;
-import com.example.arvin.myapplication.socket.impl.WBPLLHead;
+import com.example.arvin.myapplication.socket.entity.WBPAPLHead;
+import com.example.arvin.myapplication.socket.entity.WBPLLHead;
 
 /**
  * Created by RyanLee on 2015/2/14.

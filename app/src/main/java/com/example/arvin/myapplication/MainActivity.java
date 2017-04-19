@@ -8,10 +8,10 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.arvin.myapplication.socket.ConnectManager;
-import com.example.arvin.myapplication.socket.connect.IConnectPolicy;
-import com.example.arvin.myapplication.socket.connect.INetConnectListener;
-import com.example.arvin.myapplication.socket.impl.ClientConnectPolicy;
-import com.example.arvin.myapplication.socket.impl.Transaction;
+import com.example.arvin.myapplication.socket.IConnectPolicy;
+import com.example.arvin.myapplication.socket.INetConnectListener;
+import com.example.arvin.myapplication.socket.ClientConnectPolicy;
+import com.example.arvin.myapplication.socket.Transaction;
 import com.example.arvin.myapplication.socket.test.TestMsg;
 import com.example.arvin.myapplication.socket.test.TestRecvHander;
 

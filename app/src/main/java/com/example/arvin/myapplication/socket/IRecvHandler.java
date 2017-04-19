@@ -1,6 +1,6 @@
-package com.example.arvin.myapplication.socket.connect;
+package com.example.arvin.myapplication.socket;
 
-import com.example.arvin.myapplication.socket.impl.ServerHeartBeatService;
+import com.example.arvin.myapplication.socket.entity.IMessage;
 
 /**
  * Created by arvin .

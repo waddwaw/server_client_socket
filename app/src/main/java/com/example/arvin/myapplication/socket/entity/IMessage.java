@@ -1,4 +1,4 @@
-package com.example.arvin.myapplication.socket.connect;
+package com.example.arvin.myapplication.socket.entity;
 
 /**
  * 消息实体接口 所有消息必须实现此接口

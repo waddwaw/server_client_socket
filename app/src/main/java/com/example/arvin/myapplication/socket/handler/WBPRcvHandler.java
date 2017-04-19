@@ -3,16 +3,14 @@ package com.example.arvin.myapplication.socket.handler;
 import android.util.Log;
 
 import com.example.arvin.myapplication.ConstDef;
-import com.example.arvin.myapplication.DoubleChannel.DoubleChannelInfo;
-import com.example.arvin.myapplication.socket.ConnectManager;
-import com.example.arvin.myapplication.socket.connect.ILogicHandler;
-import com.example.arvin.myapplication.socket.connect.IMessage;
-import com.example.arvin.myapplication.socket.connect.IRecvHandler;
-import com.example.arvin.myapplication.socket.connect.ITransInfo;
-import com.example.arvin.myapplication.socket.impl.WBPAPLHead;
-import com.example.arvin.myapplication.socket.impl.WBPCommonAck;
-import com.example.arvin.myapplication.socket.impl.WBPHead;
-import com.example.arvin.myapplication.socket.impl.WBPLLHead;
+import com.example.arvin.myapplication.socket.ILogicHandler;
+import com.example.arvin.myapplication.socket.entity.IMessage;
+import com.example.arvin.myapplication.socket.IRecvHandler;
+import com.example.arvin.myapplication.socket.ITransInfo;
+import com.example.arvin.myapplication.socket.entity.WBPAPLHead;
+import com.example.arvin.myapplication.socket.entity.WBPCommonAck;
+import com.example.arvin.myapplication.socket.entity.WBPHead;
+import com.example.arvin.myapplication.socket.entity.WBPLLHead;
 import com.example.arvin.myapplication.socket.utils.BytesUtil;
 
 import java.util.HashMap;

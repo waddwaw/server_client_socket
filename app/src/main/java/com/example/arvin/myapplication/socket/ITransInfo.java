@@ -1,4 +1,4 @@
-package com.example.arvin.myapplication.socket.connect;
+package com.example.arvin.myapplication.socket;
 
 /**
  * Created by arvin on 2017/1/4.

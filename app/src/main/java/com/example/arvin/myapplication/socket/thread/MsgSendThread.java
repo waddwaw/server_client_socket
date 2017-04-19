@@ -1,9 +1,9 @@
-package com.example.arvin.myapplication.socket;
+package com.example.arvin.myapplication.socket.thread;
 
 import android.util.Log;
 
 import com.example.arvin.myapplication.ConstDef;
-import com.example.arvin.myapplication.socket.connect.IConnMng;
+import com.example.arvin.myapplication.socket.IConnMng;
 
 import java.io.DataOutputStream;
 import java.io.IOException;

@@ -1,8 +1,6 @@
-package com.example.arvin.myapplication.socket.impl;
+package com.example.arvin.myapplication.socket;
 
-import com.example.arvin.myapplication.socket.connect.CmdReqCallback;
-import com.example.arvin.myapplication.socket.connect.IMessage;
-import com.example.arvin.myapplication.socket.connect.ITransInfo;
+import com.example.arvin.myapplication.socket.entity.IMessage;
 
 import java.util.Date;
 import java.util.Map;

@@ -2,8 +2,8 @@ package com.example.arvin.myapplication.socket.test;
 
 import android.util.Log;
 
-import com.example.arvin.myapplication.socket.connect.IMessage;
-import com.example.arvin.myapplication.socket.connect.IRecvHandler;
+import com.example.arvin.myapplication.socket.entity.IMessage;
+import com.example.arvin.myapplication.socket.IRecvHandler;
 
 /**
  * Created by arvin on 2017/4/14.

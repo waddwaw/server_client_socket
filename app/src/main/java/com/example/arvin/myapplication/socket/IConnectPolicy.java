@@ -1,4 +1,4 @@
-package com.example.arvin.myapplication.socket.connect;
+package com.example.arvin.myapplication.socket;
 
 
 import java.util.List;

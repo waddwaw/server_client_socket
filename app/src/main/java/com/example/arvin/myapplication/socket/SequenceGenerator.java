@@ -1,4 +1,4 @@
-package com.example.arvin.myapplication.socket.impl;
+package com.example.arvin.myapplication.socket;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
