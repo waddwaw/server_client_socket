@@ -115,7 +115,8 @@ public class ServerHeartBeatService extends Thread {
                         if (heartBeatMsg == null) {
                             continue;
                         }
-                        ConnectManager.getInstance().sendCallback(clientHBInfo.m_nClientID, -1, heartBeatMsg, 10L, new CmdReqCallback() {
+
+                        boolean sendOk = ConnectManager.getInstance().sendCallback(clientHBInfo.m_nClientID, -1, heartBeatMsg, 10L, new CmdReqCallback() {
 
                             @Override
                             public void callback(IMessage msg) {
@@ -127,6 +128,13 @@ public class ServerHeartBeatService extends Thread {
                                 Log.d("socket", "callback time out");
                             }
                         });
+
+                        if (!sendOk) {
+                            if (ConnectManager.getInstance().send(clientHBInfo.m_nClientID, -1, heartBeatMsg)) {
+                                m_clientHBMap.get(lostClients.get(0)).m_LastSendTime = System.nanoTime();
+                            }
+                        }
+
                     }
                 }
             }

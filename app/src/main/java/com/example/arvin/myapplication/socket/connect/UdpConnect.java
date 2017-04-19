@@ -32,7 +32,7 @@ public class UdpConnect implements IConnect, IConnMng, IHeartBeatCallBack {
     public UdpConnect(IConnectPolicy policy, IRecvHandler iRecvHandler, IMessage heartBeatMsg) {
         this.policy = policy;
         this.iRecvHandler = iRecvHandler;
-        heartBeatService  = new ServerHeartBeatService(heartBeatMsg, UdpConnect.this, ConstDef.SERVER_HEARTBEAT_EXPIRE_TIME_IN_SECONDS, false);
+        heartBeatService  = new ServerHeartBeatService(heartBeatMsg, UdpConnect.this, ConstDef.SERVER_HEARTBEAT_EXPIRE_TIME_IN_SECONDS, true);
         this.iRecvHandler.heartBeatService = heartBeatService;
     }
 
@@ -88,31 +88,16 @@ public class UdpConnect implements IConnect, IConnMng, IHeartBeatCallBack {
 
     @Override
     public boolean sendCallback(int clientID, IMessage msg, long timeout, CmdReqCallback callback) {
-        try {
-            throw new NoSuchMethodException("不支持的操作 --> An unsupported operation");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
+            return false;
     }
 
     @Override
     public boolean syncSend(int serverKey, long timeout, IMessage msg) {
-        try {
-            throw new NoSuchMethodException("不支持的操作 --> An unsupported operation");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
+            return false;
     }
 
     @Override
     public boolean syncSendNext() {
-        try {
-            throw new NoSuchMethodException("不支持的操作 --> An unsupported operation");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         return false;
     }
 
