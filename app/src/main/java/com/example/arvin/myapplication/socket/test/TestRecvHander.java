@@ -14,7 +14,9 @@ public class TestRecvHander extends IRecvHandler{
 
     @Override
     public IMessage handleRecvByteMsg(int nServerID, byte[] recvMsg, int rcvSize) {
-        Log.d("data" , "id:" + nServerID + "byte[]:" + new String(recvMsg) + "rcvSize:" + rcvSize);
+        byte[] buf = new byte[rcvSize];
+        System.arraycopy(recvMsg, 0, buf, 0, rcvSize);
+        Log.d("data" , "id:" + nServerID + "byte[]:" + new String(buf) + "rcvSize:" + rcvSize);
         return null;
     }
 

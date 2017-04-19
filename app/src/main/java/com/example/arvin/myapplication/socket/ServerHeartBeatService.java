@@ -34,6 +34,8 @@ public class ServerHeartBeatService extends Thread {
     private boolean isClient;
     private long expireTimeInSeconds;
 
+    private int clientId;
+
     public ServerHeartBeatService(IMessage heartBeatMsg, IHeartBeatCallBack callBack, long expireTimeInSeconds, boolean isClient) {
         this.setName("ServerHeartBeatService");
         this.heartBeatMsg = heartBeatMsg;
@@ -58,6 +60,7 @@ public class ServerHeartBeatService extends Thread {
 
     public void addClient(int clientId) {
         ClientHBInfo hbInfo = new ClientHBInfo(clientId, System.nanoTime());
+        this.clientId = clientId;
         m_clientHBMap.put(clientId, hbInfo);
     }
 
@@ -120,7 +123,7 @@ public class ServerHeartBeatService extends Thread {
 
                             @Override
                             public void callback(IMessage msg) {
-                                m_clientHBMap.get(lostClients.get(0)).m_LastSendTime = System.nanoTime();
+                                m_clientHBMap.get(clientId).m_LastSendTime = System.nanoTime();
                             }
 
                             @Override
@@ -131,7 +134,7 @@ public class ServerHeartBeatService extends Thread {
 
                         if (!sendOk) {
                             if (ConnectManager.getInstance().send(clientHBInfo.m_nClientID, -1, heartBeatMsg)) {
-                                m_clientHBMap.get(lostClients.get(0)).m_LastSendTime = System.nanoTime();
+                                m_clientHBMap.get(clientId).m_LastSendTime = System.nanoTime();
                             }
                         }
 
