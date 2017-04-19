@@ -50,12 +50,15 @@ public abstract class IRecvHandler<T extends IMessage> {
      */
     public void handlerMsg(int nServerID, byte[] recvMsg, int rcvSize) {
         T t = handleRecvByteMsg(nServerID, recvMsg, rcvSize);
-        boolean isCommitTrans = m_transInfo.commitTrans(t.getSequenceId(), t);
-        if (isCommitTrans) {
-            return;
+
+        if (m_transInfo != null) {
+            boolean isCommitTrans = m_transInfo.commitTrans(t.getSequenceId(), t);
+            if (isCommitTrans) {
+                return;
+            }
         }
         boolean isHearBeat = handlerHeartBeat(nServerID, t);
-        if (isHearBeat) {
+        if (isHearBeat && heartBeatService != null) {
             heartBeatService.handleHeartBeatReq(nServerID, t);
             return;
         }
