@@ -93,33 +93,34 @@ public class ServerHeartBeatService extends Thread {
             }
 
             long currentTime = System.nanoTime();
-
-            final ArrayList<Integer> lostClients = new ArrayList<>();
-            for (Map.Entry<Integer, ClientHBInfo> entry : m_clientHBMap.entrySet()) {
-                ClientHBInfo clientHBInfo = entry.getValue();
-                if (currentTime - clientHBInfo.m_LastSendTime < m_expireTimeInNanoSeconds * 2) {
-                    continue;
+            if (!isClient) {
+                final ArrayList<Integer> lostClients = new ArrayList<>();
+                for (Map.Entry<Integer, ClientHBInfo> entry : m_clientHBMap.entrySet()) {
+                    ClientHBInfo clientHBInfo = entry.getValue();
+                    if (currentTime - clientHBInfo.m_LastSendTime < m_expireTimeInNanoSeconds * 2) {
+                        continue;
+                    }
+                    lostClients.add(clientHBInfo.m_nClientID);
                 }
-                lostClients.add(clientHBInfo.m_nClientID);
-            }
 
 
-            for (Integer clientId : lostClients) {
-                m_clientHBMap.remove(clientId);
-                if (m_callBack != null) {
-                    m_callBack.remoteDidFailedToBeat(clientId);
+                for (Integer clientId : lostClients) {
+                    m_clientHBMap.remove(clientId);
+                    if (m_callBack != null) {
+                        m_callBack.remoteDidFailedToBeat(clientId);
+                    }
                 }
             }
 
             if (isClient) {
                 for (Map.Entry<Integer, ClientHBInfo> entry : m_clientHBMap.entrySet()) {
                     ClientHBInfo clientHBInfo = entry.getValue();
-                    if (currentTime - clientHBInfo.m_LastSendTime > m_expireTimeInNanoSeconds - TimeUnit.NANOSECONDS.convert(expireTimeInSeconds - 20, TimeUnit.SECONDS)) {
+                    if (currentTime - clientHBInfo.m_LastSendTime > m_expireTimeInNanoSeconds) {
                         if (heartBeatMsg == null) {
                             continue;
                         }
 
-                        boolean sendOk = ConnectManager.getInstance().sendCallback(clientHBInfo.m_nClientID, -1, heartBeatMsg, 10L, new CmdReqCallback() {
+                        boolean sendOk = ConnectManager.getInstance().sendCallback(clientHBInfo.m_nClientID, -1, heartBeatMsg, 10, new CmdReqCallback() {
 
                             @Override
                             public void callback(IMessage msg) {
@@ -129,6 +130,10 @@ public class ServerHeartBeatService extends Thread {
                             @Override
                             public void timeOut() {
                                 Log.d("socket", "callback time out");
+                                m_clientHBMap.remove(clientId);
+                                if (m_callBack != null) {
+                                    m_callBack.remoteDidFailedToBeat(clientId);
+                                }
                             }
                         });
 

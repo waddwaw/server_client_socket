@@ -8,7 +8,9 @@ import com.example.arvin.myapplication.socket.IConnectPolicy;
 import com.example.arvin.myapplication.socket.IHeartBeatCallBack;
 import com.example.arvin.myapplication.socket.INetConnectListener;
 import com.example.arvin.myapplication.socket.IRecvHandler;
+import com.example.arvin.myapplication.socket.ITransInfo;
 import com.example.arvin.myapplication.socket.ServerHeartBeatService;
+import com.example.arvin.myapplication.socket.Transaction;
 import com.example.arvin.myapplication.socket.entity.IMessage;
 import com.example.arvin.myapplication.socket.thread.UDPRecvThread;
 import com.example.arvin.myapplication.socket.thread.UDPSendThread;
@@ -27,13 +29,15 @@ public class UdpConnect implements IConnect, IConnMng, IHeartBeatCallBack {
     UDPRecvThread udpRecvThread;
     UDPSendThread udpSendThread;
     DatagramSocket m_UDPSock;
+    ITransInfo iTransInfo;
     ServerHeartBeatService heartBeatService;
 
     public UdpConnect(IConnectPolicy policy, IRecvHandler iRecvHandler, IMessage heartBeatMsg) {
         this.policy = policy;
         this.iRecvHandler = iRecvHandler;
-        heartBeatService  = new ServerHeartBeatService(heartBeatMsg, UdpConnect.this, ConstDef.SERVER_HEARTBEAT_EXPIRE_TIME_IN_SECONDS, true);
+        heartBeatService = new ServerHeartBeatService(heartBeatMsg, UdpConnect.this, ConstDef.SERVER_HEARTBEAT_EXPIRE_TIME_IN_SECONDS, true);
         this.iRecvHandler.heartBeatService = heartBeatService;
+        this.iTransInfo = iRecvHandler.m_transInfo;
     }
 
     @Override
@@ -54,6 +58,7 @@ public class UdpConnect implements IConnect, IConnMng, IHeartBeatCallBack {
             }
             udpSendThread.Start(m_UDPSock);
             udpRecvThread.Start(m_UDPSock);
+            iTransInfo.m_start();
             this.iRecvHandler.heartBeatService.startBeating();
         } catch (SocketException e) {
             e.printStackTrace();
@@ -62,6 +67,7 @@ public class UdpConnect implements IConnect, IConnMng, IHeartBeatCallBack {
 
     @Override
     public void m_stop() {
+        iTransInfo.m_stop();
         udpSendThread.Stop();
         udpRecvThread.Stop();
         this.iRecvHandler.heartBeatService.stopBeating();
@@ -88,12 +94,18 @@ public class UdpConnect implements IConnect, IConnMng, IHeartBeatCallBack {
 
     @Override
     public boolean sendCallback(int clientID, IMessage msg, long timeout, CmdReqCallback callback) {
+        if (udpSendThread == null) {
             return false;
+        }
+        int seq = this.iTransInfo.beginTrans(timeout, callback);
+        msg.setSequenceId(seq);
+        udpSendThread.sendTo(msg.getMessage());
+        return true;
     }
 
     @Override
     public boolean syncSend(int serverKey, long timeout, IMessage msg) {
-            return false;
+        return false;
     }
 
     @Override

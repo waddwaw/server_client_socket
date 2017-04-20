@@ -77,7 +77,8 @@ public class ConnectManager {
      *
      * @param iRecvHandler
      */
-    public void addUdpConnect(final IConnectPolicy policy, final IRecvHandler iRecvHandler, IMessage heartBeatMsg) {
+    public void addUdpConnect(final IConnectPolicy policy, final IRecvHandler iRecvHandler, ITransInfo iTransInfo,IMessage heartBeatMsg) {
+        iRecvHandler.m_transInfo = iTransInfo;
         final UdpConnect connect = new UdpConnect(policy, iRecvHandler, heartBeatMsg);
         new Thread(new Runnable() {
             @Override

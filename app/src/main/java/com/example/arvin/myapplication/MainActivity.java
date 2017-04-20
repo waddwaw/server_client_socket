@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.arvin.myapplication.socket.ConnectManager;
 import com.example.arvin.myapplication.socket.IConnectPolicy;
@@ -170,14 +171,15 @@ public class MainActivity extends AppCompatActivity {
                 ClientConnectPolicy policy = new ClientConnectPolicy(119, hosts, 1000 * 10, 10);
                 TestRecvHander recvHander = new TestRecvHander();
                 TestMsg msg = new TestMsg("test");
-                ConnectManager.getInstance().addUdpConnect(policy, recvHander, msg);
+                ConnectManager.getInstance().addUdpConnect(policy, recvHander, new Transaction(),msg);
             }
         });
 
         sendUdp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ConnectManager.getInstance().send(119, -1, new TestMsg("udpmsg"));
+                boolean isOk = ConnectManager.getInstance().send(119, -1, new TestMsg("udpmsg"));
+                Toast.makeText(v.getContext(), "--" + isOk, Toast.LENGTH_LONG).show();
             }
         });
     }
